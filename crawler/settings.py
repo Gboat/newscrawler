@@ -1,7 +1,8 @@
 import os
-PROJECT_PATH = '/home/boat/workspace/code/minicrawler'
+PROJECT_PATH = os.path.realpath(os.path.dirname(__file__) + '/../')
 LIMIT = 10000
 
+IMAGES_STORE = PROJECT_PATH + '/data/images'
 BOT_NAME = 'news'
 
 SPIDER_MODULES = ['crawler.spiders']
@@ -16,7 +17,10 @@ USER_AGENT_LIST = [
     ]
 
 DEFAULT_ITEM_CLASS = 'crawler.items.CrawlerItem'
-ITEM_PIPELINES = ['crawler.pipelines.mongo_storage',]
+ITEM_PIPELINES = [
+	'crawler.pipelines.images_process',
+	'crawler.pipelines.mongo_storage',
+	]
 EXTENSIONS = {
 #    'scrapy.contrib.corestats.CoreStats': 500,
 #    'crawler.statstodb.StatsToMongo': 1000,
@@ -30,22 +34,3 @@ REDIRECT_MAX_TIMES =0
 
 MONGODB = {'host':'localhost','port':27017,'name':'chidian'}
 MYSQLDB = {'host':'localhost','port':27017,'name':'chidian','user':'root','pwd':'root'}
-
-MAIL_DEBUG = False
-MAIL_HOST = 'mail.google.com'
-MAIL_PORT = 25
-MAIL_FROM = 'gongming@umeng.com'
-MAIL_PASS = 'umeng123'
-MAIL_USER = 'gongming@umeng.com'
-
-COOKIES_ENABLED = True
-DNSCACHE_ENABLED = True
-
-DEFAULT_REQUEST_HEADERS = {
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    'Accept-Language': 'cn',
-}
-
-PROXIES = [{'ip_port': 'xx.xx.xx.xx:xxxx', 'user_pass': 'foo:bar'},
-           {'ip_port': 'PROXY2_IP:PORT_NUMBER', 'user_pass': 'username:password'},
-           {'ip_port': 'PROXY3_IP:PORT_NUMBER', 'user_pass': ''},]
